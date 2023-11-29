@@ -9,29 +9,29 @@ void swap(int *a, int *b)
 
 int partition (int a[], int start, int end)  
 {  
-    int pivot = a[end]; // pivot element  
-    int i = (start - 1);  
+    int pivot = a[low]; // pivot element  
+    int i = low + 1;
+    int j = high;
   
-    for (int j = start; j <= end - 1; j++)  
-    {  
-        // If current element is smaller than the pivot  
-        if (a[j] < pivot)  
-        {  
-            i++; // increment index of smaller element  
-            swap(&a[i], &a[j]);  
-        }  
-    }  
-    swap(&a[i+1], &a[end]);
+    do{
+        while (a[i] < pivot)
+            i++;
+        while (a[j] > pivot)
+            j--;
+        if (i < j)
+            swap(&a[i], &a[j]);
+    }while(i < j);
+    swap(&a[low], &a[j]);
     return (i + 1);  
 }  
  
-void quick(int a[], int start, int end)  
+void quick(int a[], int low, int high)  
 {  
-    if (start < end)  
+    if (low < high)  
     {  
-        int p = partition(a, start, end); //p is the partitioning index  
-        quick(a, start, p - 1);  
-        quick(a, p + 1, end);  
+        int p = partition(a, low, high); //p is the partitioning index  
+        quick(a, low, p - 1);  
+        quick(a, p + 1, high);  
     }  
 }  
 
